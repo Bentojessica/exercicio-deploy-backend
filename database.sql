@@ -1,6 +1,6 @@
--- Active: 1678364646195@@127.0.0.1@3306
+-- Active: 1678375173032@@127.0.0.1@3306
 
-CREATE TABLE users_deploy (
+CREATE TABLE users (
     id TEXT PRIMARY KEY UNIQUE NOT NULL,
     name TEXT NOT NULL,
     email TEXT UNIQUE NOT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE users_deploy (
     created_at TEXT DEFAULT (DATETIME()) NOT NULL
 );
 
-INSERT INTO users_deploy (id, name, email, password, role)
+INSERT INTO users (id, name, email, password, role)
 VALUES
     -- senha = fulano123
 	("u001", "Fulano", "fulano@email.com", "$2a$12$IsYkYIDtNZuhG2MGg31JI.Pk20a5QkFmLZWYIHPi2B3SqT5AquU9m", "NORMAL"),
@@ -20,7 +20,7 @@ VALUES
     -- senha = astrodev99
     ("u003", "Astrodev", "astrodev@email.com", "$2a$12$zOChEK2fGYiPafZNomVeI.K3W4QHcCP13iv./5aU/ERKkhwA4Z/GC", "ADMIN");
 
-CREATE TABLE playlists_deploy (
+CREATE TABLE playlists (
     id TEXT PRIMARY KEY UNIQUE NOT NULL,
     creator_id TEXT NOT NULL,
     name TEXT NOT NULL,
@@ -33,13 +33,13 @@ CREATE TABLE playlists_deploy (
         ON UPDATE CASCADE
 );
 
-INSERT INTO playlists_deploy (id, creator_id, name)
+INSERT INTO playlists (id, creator_id, name)
 VALUES
     ("p001", "u001", "Samba churrasco"),
     ("p002", "u001", "Rock and Roll"),
     ("p003", "u002", "Coding Focus");
 
-CREATE TABLE likes_dislikes_deploy (
+CREATE TABLE likes_dislikes (
     user_id TEXT NOT NULL,
     playlist_id TEXT NOT NULL,
     like INTEGER NOT NULL,
@@ -51,7 +51,7 @@ CREATE TABLE likes_dislikes_deploy (
         ON UPDATE CASCADE
 );
 
-INSERT INTO likes_dislikes_deploy (user_id, playlist_id, like)
+INSERT INTO likes_dislikes (user_id, playlist_id, like)
 VALUES
     ("u002", "p001", 1),
     ("u003", "p001", 1),
@@ -60,18 +60,18 @@ VALUES
     ("u001", "p003", 1),
     ("u003", "p003", 0);
 
-UPDATE playlists_deploy
+UPDATE playlists
 SET likes = 2
 WHERE id = "p001";
 
-UPDATE playlists_deploy
+UPDATE playlists
 SET likes = 2
 WHERE id = "p002";
 
-UPDATE playlists_deploy
+UPDATE playlists
 SET likes = 1
 WHERE id = "p003";
 
-UPDATE playlists_deploy
+UPDATE playlists
 SET dislikes = 1
 WHERE id = "p003";
